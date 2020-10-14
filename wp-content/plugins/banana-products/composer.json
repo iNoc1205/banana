@@ -1,0 +1,17 @@
+{
+    "name": "inoc/banana-products",
+    "description": "Product Management for Banana Print",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "iNoc1205",
+            "email": "enoc.villa16@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}
