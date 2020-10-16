@@ -16,6 +16,9 @@ class Admin extends BaseController{
     public $pages = array();
     public $subpages = array();
 
+    public $taller = array();
+    public $impresion = array();
+
     public function register()
     {
         $this -> settings =new SettingsApi();
@@ -30,7 +33,9 @@ class Admin extends BaseController{
         $this -> setSections();
         $this -> setField(); */
 
-        $this -> settings -> addPages($this -> pages) ->withSubPage ('Todos los productos')-> addSubPages( $this->subpages) -> register();
+        /* $this -> settings -> addPages($this -> pages) ->withSubPage ('Todos los productos')-> addSubPages( $this->subpages) -> register(); */
+
+        $this -> retriveProducts();
 
         add_action( 'init', array( $this, 'activate'));
     }
@@ -43,9 +48,28 @@ class Admin extends BaseController{
                     'singular_name' => 'Producto'
                 ),
                 'public' => true,
-                'has_archive' => true, 
+                'has_archive' => true,
+                'menu_icon' => 'dashicons-screenoptions', 
+                'menu_position' => 10
             )
         );
+    }
+
+    public function retriveProducts (){
+        $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+        /* $test = json_decode($request, true);
+        var_dump($test); */
+        if( ! empty( $request ) ) {
+            $body = wp_remote_retrieve_body($request);
+            $data = json_decode($body, true);
+            /* $productos = $data["taller"]["productos"];
+            var_dump($productos); */
+            /* $this -> taller = $data["taller"]["productos"];
+            var_dump($this->taller); */
+            /* foreach( $data["taller"]["productos"] as $product ) {
+                echo '<p>' . $product . '</p>';
+            } */
+        }
     }
 
     public function setPages(){

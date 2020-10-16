@@ -44,3 +44,95 @@ function custom_post_type( ){
 	register_post_type('faq', $faq);
 }
 add_action('init', 'custom_post_type');
+
+/* function acf_load_material_taller_field_choices( $field ) {
+	//retrieve materials for choices for select from API
+	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+	if( ! empty( $request ) ) {
+		$body = wp_remote_retrieve_body($request);
+		$data = json_decode($body, true);
+		$taller = $data["taller"]["productos"];
+	}
+    // reset choices
+    $field['choices'] = array();
+    // load choices with API array
+    $choices = $taller;
+    // loop through array and add to field 'choices'
+    if( is_array($choices) ) {
+        
+        foreach( $choices as $choice ) {
+            $field['choices'][ $choice ] = $choice;
+		}
+    }
+    // return the field
+    return $field;
+}
+add_filter('acf/load_field/name=elegir_meterial_taller', 'acf_load_material_taller_field_choices');
+
+function acf_load_material_impresion_field_choices( $field ) {
+	//retrieve materials for choices for select from API
+	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+	if( ! empty( $request ) ) {
+		$body = wp_remote_retrieve_body($request);
+		$data = json_decode($body, true);
+		$taller = $data["impresion"]["productos"];
+	}
+    // reset choices
+    $field['choices'] = array();
+    // load choices with API array
+    $choices = $taller;
+    // loop through array and add to field 'choices'
+    if( is_array($choices) ) {
+        foreach ($choices as $key => $value) {
+			$field['choices'][ $key ] = $value;
+		}    
+    }
+	// return the field
+    return $field;
+}
+add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); */
+
+
+function create_quantity_taxonomy() {
+	$labels = array(
+		'name'                           => 'Cantidades',
+		'singular_name'                  => 'Cantidad',
+		'add_new_item'                   => 'Añadir una cantidad',
+		'new_item_name'                  => 'Nueva Cantidad',
+		'menu_name'                      => 'Cantidades',
+		'add_or_remove_items'            => 'Añadir o Borrar Cantidades'
+	);
+	register_taxonomy(
+		'cantidad',
+		'post',
+		array(
+			'label' => __( 'Cantidad' ),
+			'hierarchical' => false,
+			'labels' => $labels
+		)
+	);
+}
+
+add_action( 'init', 'create_quantity_taxonomy');
+
+function create_dimensions_taxonomy() {
+	$labels = array(
+		'name'                           => 'Dimensiones',
+		'singular_name'                  => 'Dimensión',
+		'add_new_item'                   => 'Añadir una dimensión',
+		'new_item_name'                  => 'Nueva dimensión',
+		'menu_name'                      => 'Dimensiones',
+		'add_or_remove_items'            => 'Añadir o Borrar Dimensiones'
+	);
+	register_taxonomy(
+		'dimension',
+		'post',
+		array(
+			'label' => __( 'Dimensión' ),
+			'hierarchical' => false,
+			'labels' => $labels
+		)
+	);
+}
+
+add_action( 'init', 'create_dimensions_taxonomy' );
