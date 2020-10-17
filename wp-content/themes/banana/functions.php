@@ -45,7 +45,7 @@ function custom_post_type( ){
 }
 add_action('init', 'custom_post_type');
 
-/* function acf_load_material_taller_field_choices( $field ) {
+ function acf_load_material_taller_field_choices( $field ) {
 	//retrieve materials for choices for select from API
 	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
 	if( ! empty( $request ) ) {
@@ -59,10 +59,9 @@ add_action('init', 'custom_post_type');
     $choices = $taller;
     // loop through array and add to field 'choices'
     if( is_array($choices) ) {
-        
-        foreach( $choices as $choice ) {
-            $field['choices'][ $choice ] = $choice;
-		}
+        foreach ($choices as $key => $value) {
+            $field['choices'][ $key ] = $value;
+        }    
     }
     // return the field
     return $field;
@@ -90,7 +89,67 @@ function acf_load_material_impresion_field_choices( $field ) {
 	// return the field
     return $field;
 }
-add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); */
+add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
+
+
+///////////////////////////// ANDREY //////////////////////////////////
+
+
+add_action('admin_enqueue_scripts', 'asv_insertar_js');
+
+function asv_insertar_js(){
+
+    //if (!is_home()) return;
+
+    wp_enqueue_media();
+    wp_register_script('asv_script', get_stylesheet_directory_uri(). '/script.js', array('jquery'), '1', true );
+    wp_enqueue_script('asv_script');
+
+    /*wp_localize_script( 'my_js', 'ajax_var', array(
+        'url'    => admin_url( 'admin-ajax.php' ),
+        'nonce'  => wp_create_nonce( 'my-ajax-nonce' ),
+        'action' => 'event-list'
+    ) );*/
+}
+
+
+
+function fn_obtener_tipos_taller() {
+    // Check for nonce security
+
+    /*
+    $nonce = sanitize_text_field( $_POST['nonce'] );
+
+    if ( ! wp_verify_nonce( $nonce, 'my-ajax-nonce' ) ) {
+        die ( 'Busted!');
+    }
+    */
+
+    $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+    if( ! empty( $request ) ) {
+        $body = wp_remote_retrieve_body($request);
+        $data = json_decode($body, true);
+        //var_dump($data);
+        $datos = $data["taller"]["tipos"][ $_POST['id_producto'] ];
+    }
+
+    $retornar = '';
+
+ 
+    foreach ($datos as $key => $value) {
+        $retornar .= '<option value="'.$key.'">'.$value.'</option>';
+    }    
+    
+
+    echo $retornar;
+
+    wp_die();
+}
+#add_action( 'wp_ajax_nopriv_obtener_tipos_taller', 'fn_obtener_tipos_taller' );
+add_action( 'wp_ajax_obtener_tipos_taller', 'fn_obtener_tipos_taller' );
+
+///////////////////////////////////////////////////////////////////////////
+
 
 
 function create_quantity_taxonomy() {
