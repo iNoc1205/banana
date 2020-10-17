@@ -45,7 +45,7 @@ function custom_post_type( ){
 }
 add_action('init', 'custom_post_type');
 
- function acf_load_material_taller_field_choices( $field ) {
+function acf_load_material_taller_field_choices( $field ) {
 	//retrieve materials for choices for select from API
 	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
 	if( ! empty( $request ) ) {
@@ -92,6 +92,32 @@ function acf_load_material_impresion_field_choices( $field ) {
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
 
+/* function acf_load_saved_tipo_taller($field){
+	$retornar = $field;
+
+	$rows = get_field('repeater_field_name');
+	if( $rows ) {
+		echo '<ul class="slides">';
+		foreach( $rows as $row ) {
+			$image = $row['image'];
+			echo '<li>';
+				echo wp_get_attachment_image( $image, 'full' );
+				echo wpautop( $row['caption'] );
+			echo '</li>';
+		}
+		echo '</ul>';
+	}
+
+	$variable = get_field('elegir_tipo', 211);
+
+	if ($field) {
+		return $retornar;
+	} else {
+		return '';
+	}
+}
+add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');  */
+
 ///////////////////////////// ANDREY //////////////////////////////////
 
 
@@ -115,15 +141,6 @@ function asv_insertar_js(){
 
 
 function fn_obtener_tipos_taller() {
-    // Check for nonce security
-
-    /*
-    $nonce = sanitize_text_field( $_POST['nonce'] );
-
-    if ( ! wp_verify_nonce( $nonce, 'my-ajax-nonce' ) ) {
-        die ( 'Busted!');
-    }
-    */
 
     $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
     if( ! empty( $request ) ) {
@@ -138,6 +155,28 @@ function fn_obtener_tipos_taller() {
  
     foreach ($datos as $key => $value) {
         $retornar .= '<option value="'.$key.'">'.$value.'</option>';
+	}    
+
+    echo $retornar;
+
+    wp_die();
+}
+add_action( 'wp_ajax_obtener_tipos_taller', 'fn_obtener_tipos_taller' );
+
+function fn_obtener_tipos_impresion() {
+
+    $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+    if( ! empty( $request ) ) {
+        $body = wp_remote_retrieve_body($request);
+        $data = json_decode($body, true);
+        //var_dump($data);
+		$datos = $data["impresion"]["tipos"][ $_POST['id_iproducto'] ];
+    }
+
+    $retornar = '';
+
+    foreach ($datos as $key => $value) {
+        $retornar .= '<option value="'.$key.'">'.$value["nombre"].'</option>';
     }    
     
 
@@ -145,8 +184,7 @@ function fn_obtener_tipos_taller() {
 
     wp_die();
 }
-#add_action( 'wp_ajax_nopriv_obtener_tipos_taller', 'fn_obtener_tipos_taller' );
-add_action( 'wp_ajax_obtener_tipos_taller', 'fn_obtener_tipos_taller' );
+add_action( 'wp_ajax_obtener_tipos_impresion', 'fn_obtener_tipos_impresion' );
 
 ///////////////////////////////////////////////////////////////////////////
 

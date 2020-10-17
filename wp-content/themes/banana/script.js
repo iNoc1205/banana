@@ -28,10 +28,32 @@
             selectTipo.empty();
             selectTipo.html(result);
          }
-     });
-
-
-     // https://www.advancedcustomfields.com/resources/javascript-api/
-     
+     });     
    });
+
+  $(document).on('change', '[data-key="field_5f8915e7cbe8a"] .acf-input select', function(e) {
+     
+    // once your getting the change event to fire
+    // get field value using ACF JS API
+
+    var valor = this.value;
+    //field.hide(); -  field.show();
+
+     var selectTipo = jQuery(this).parents('.acf-row').find('[data-key="field_5f8a6e9f2341f"] .acf-input select');
+     selectTipo.html('<option>Cargando...</option>');
+
+    jQuery.ajax({
+        type: "post",
+        url: ajaxurl,
+        data: "action=obtener_tipos_impresion&id_iproducto=" + valor,
+        success: function(result){
+           selectTipo.empty();
+           selectTipo.html(result);
+        }
+    });
+
+
+    // https://www.advancedcustomfields.com/resources/javascript-api/
+    
+  });
  })(jQuery);
