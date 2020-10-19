@@ -91,29 +91,88 @@ function acf_load_material_impresion_field_choices( $field ) {
 }
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
-$test = get_field('anadir_material');
-/* $rows = have_rows('$test'); */
-var_dump($test);
+/* $postId = $_GET['post'];
+$test = get_field('anadir_material' , $postId);
+$rows = have_rows('anadir_material' , $postId);
+var_dump($test); */
 
-/* function acf_load_saved_tipo_taller($field){
+function acf_load_saved_tipo_taller($field){
+	remove_filter( current_filter(), __FUNCTION__ );
 
+	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+    if( ! empty( $request ) ) {
+        $body = wp_remote_retrieve_body($request);
+        $data = json_decode($body, true);
+        $datos = $data["taller"]["tipos"];
+	}
 	
-	$rows = get_field('repeater_field_name');
-	if( $rows ) {
-		echo '<ul class="slides">';
-		foreach( $rows as $row ) {
-			$image = $row['image'];
-			echo '<li>';
-				echo wp_get_attachment_image( $image, 'full' );
-				echo wpautop( $row['caption'] );
-			echo '</li>';
-		}
-		echo '</ul>';
+	$postId = '';
+
+	if(isset($_GET['post'])) {
+		$postId = $_GET['post'];
 	}
 
-	return $field;
+	var_dump($field);
+	
+	$field['choices'] = array();
+	
+	$rows = get_field('anadir_material' , $postId);
+	//var_dump($rows);
+
+	if( $rows ) {
+		foreach( $rows as $row ) {
+			if($row['elegir_tipo']){
+				$material = $row['elegir_meterial_taller'];
+				$tipo = $row['elegir_tipo'];
+				//var_dump($material);
+				//var_dump($tipo);
+				$nombre = $datos[$material][$tipo];
+				$field['choices'][ $tipo ] = $nombre;
+			}
+		}
+	}
+
+    return $field;
 }
-add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');  */
+add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');
+
+function acf_load_saved_tipo_imprsion($field){
+	remove_filter( current_filter(), __FUNCTION__ );
+
+	$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+    if( ! empty( $request ) ) {
+        $body = wp_remote_retrieve_body($request);
+        $data = json_decode($body, true);
+        $datos = $data["impresion"]["tipos"];
+	}
+	
+	$postId = '';
+
+	if(isset($_GET['post'])) {
+		$postId = $_GET['post'];
+	}
+
+	//var_dump($field);
+	
+	$field['choices'] = array();
+	
+	$rows = get_field('anadir_material' , $postId);
+	//var_dump($rows);
+
+	if( $rows ) {
+		foreach( $rows as $row ) {
+			if($row['elegir_tipo_impresion']){
+				$material = $row['elegir_material_impresion'];
+				$tipo = $row['elegir_tipo_impresion'];
+				$nombre = $datos[$material][$tipo]['nombre'];
+				$field['choices'][ $tipo ] = $nombre;
+			}
+		}
+	}
+
+    return $field;
+}
+add_filter('acf/load_field/name=elegir_tipo_impresion', 'acf_load_saved_tipo_imprsion');
 
 ///////////////////////////// ANDREY //////////////////////////////////
 
