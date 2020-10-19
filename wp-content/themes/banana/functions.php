@@ -91,10 +91,13 @@ function acf_load_material_impresion_field_choices( $field ) {
 }
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
+$test = get_field('anadir_material');
+/* $rows = have_rows('$test'); */
+var_dump($test);
 
 /* function acf_load_saved_tipo_taller($field){
-	$retornar = $field;
 
+	
 	$rows = get_field('repeater_field_name');
 	if( $rows ) {
 		echo '<ul class="slides">';
@@ -108,13 +111,7 @@ add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_i
 		echo '</ul>';
 	}
 
-	$variable = get_field('elegir_tipo', 211);
-
-	if ($field) {
-		return $retornar;
-	} else {
-		return '';
-	}
+	return $field;
 }
 add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');  */
 
