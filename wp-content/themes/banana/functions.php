@@ -111,21 +111,16 @@ function acf_load_saved_tipo_taller($field){
 	if(isset($_GET['post'])) {
 		$postId = $_GET['post'];
 	}
-
-	var_dump($field);
 	
 	$field['choices'] = array();
 	
 	$rows = get_field('anadir_material' , $postId);
-	//var_dump($rows);
 
 	if( $rows ) {
 		foreach( $rows as $row ) {
 			if($row['elegir_tipo']){
 				$material = $row['elegir_meterial_taller'];
 				$tipo = $row['elegir_tipo'];
-				//var_dump($material);
-				//var_dump($tipo);
 				$nombre = $datos[$material][$tipo];
 				$field['choices'][ $tipo ] = $nombre;
 			}
@@ -151,13 +146,10 @@ function acf_load_saved_tipo_imprsion($field){
 	if(isset($_GET['post'])) {
 		$postId = $_GET['post'];
 	}
-
-	//var_dump($field);
 	
 	$field['choices'] = array();
 	
 	$rows = get_field('anadir_material' , $postId);
-	//var_dump($rows);
 
 	if( $rows ) {
 		foreach( $rows as $row ) {
