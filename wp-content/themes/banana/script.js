@@ -11,7 +11,7 @@
    // you need to inspect the HTML see the structure of the field
 
    ///////////////////// TIPOS TALLER /////////////////////
-   $(document).on('change', '[data-key="field_5f8915adcbe89"] .acf-input select', function(e) {
+   /*$(document).on('change', '[data-key="field_5f8915adcbe89"] .acf-input select', function(e) {
      
      // once your getting the change event to fire
      // get field value using ACF JS API
@@ -31,7 +31,7 @@
             selectTipo.html(result);
          }
      });     
-   });
+   });*/
 
    ///////////////////// TALLER EXTRAS /////////////////////
   $(document).on('change', '[data-key="field_5f8a0db7c4bc2"] .acf-input select', function(e) {
@@ -89,35 +89,48 @@
     
   });
  
-  /* $(document).on('change', '[data-key="field_5f8915adcbe89"] .acf-input select', function(e) {
-    cargarTipos(jQuery(this));
+  $(document).on('change', '[data-key="field_5f8915adcbe89"] .acf-input select', function(e) {
+    cargarTipos(jQuery(this), 'obtener_tipos_taller', 'elegir_tipo');
   });
 
   $(document).ready(function(){
     let rows = jQuery('.acf-field-5f891556cbe87 .acf-table .acf-row');
     jQuery.each(rows, function(i, val) {
       let selectTaller = jQuery(this).find('[data-name="elegir_meterial_taller"] select');
-      cargarTipos(selectTaller);
+      if( selectTaller.prop('disabled') == false ){
+        cargarTipos(selectTaller, 'obtener_tipos_taller', 'elegir_tipo');
+      }
+
+      let selectImpresion = jQuery(this).find('[data-name="elegir_material_impresion"] select');
+      if( selectImpresion.prop('disabled') == false ){
+        cargarTipos(selectImpresion, 'obtener_tipos_impresion', 'elegir_tipo_impresion');
+      }
     });
   });
 
 
-  function cargarTipos($this)
+  function cargarTipos($this, $action, $keySelect )
   {
-    var valor = $this.val();
-    var selectTipo = $this.parents('.acf-row').find('[data-key="field_5f8a0db7c4bc2"] .acf-input select');
-    var idSelect = $this.attr('id');
-    console.log(idSelect);
+    var $post_ID = jQuery("#post_ID").val();
+
+    var valor      = $this.val();
+    var selectTipo = $this.parents('.acf-row').find('[data-name="' + $keySelect + '"] .acf-input select');
+    var idSelect   = $this.attr('id');
+
     selectTipo.html('<option>Cargando...</option>');
 
     jQuery.ajax({
       type: "post",
       url: ajaxurl,
-      data: "action=obtener_tipos_taller&id_producto=" + valor  +"&idSelect=" +idSelect,
+      data: "action=" + $action +
+            "&id_producto=" + valor  +
+            "&idSelect=" + idSelect + 
+            "&post_ID=" + $post_ID,
       success: function(result){
         selectTipo.empty();
         selectTipo.html(result);
       }
     });
-  } */
+  }
+
 })(jQuery);

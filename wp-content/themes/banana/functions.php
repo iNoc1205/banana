@@ -1,5 +1,8 @@
 <?php
 
+#remove_filter( 'the_content', 'wpautop' );
+#remove_filter( 'the_excerpt', 'wpautop' );
+
 //Load Styles
 function load_css( ){
 	wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' );
@@ -91,10 +94,10 @@ function acf_load_material_impresion_field_choices( $field ) {
 }
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
-$postId = $_GET['post'];
-$test = get_field('anadir_material' , $postId);
+#$postId = $_GET['post'];
+#$test = get_field('anadir_material' , $postId);
 // $rows = have_rows('anadir_material' , $postId);
-var_dump($test);
+#var_dump($test);
 
 function acf_load_saved_tipo_taller($field){
 	remove_filter( current_filter(), __FUNCTION__ );
@@ -129,7 +132,7 @@ function acf_load_saved_tipo_taller($field){
 
     return $field;
 }
-add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');
+#add_filter('acf/load_field/name=elegir_tipo', 'acf_load_saved_tipo_taller');
 
 function acf_load_saved_tipo_imprsion($field){
 	remove_filter( current_filter(), __FUNCTION__ );
@@ -164,7 +167,7 @@ function acf_load_saved_tipo_imprsion($field){
 
     return $field;
 }
-add_filter('acf/load_field/name=elegir_tipo_impresion', 'acf_load_saved_tipo_imprsion');
+#add_filter('acf/load_field/name=elegir_tipo_impresion', 'acf_load_saved_tipo_imprsion');
 
 function acf_load_saved_acabado($field){
 	remove_filter( current_filter(), __FUNCTION__ );
@@ -215,33 +218,29 @@ function asv_insertar_js(){
 	wp_enqueue_script('asv_script');
 }
 
+
 function fn_obtener_tipos_taller() {
 
     $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
     if( ! empty( $request ) ) {
         $body = wp_remote_retrieve_body($request);
         $data = json_decode($body, true);
-        //var_dump($data);
         $datos = $data["taller"]["tipos"][ $_POST['id_producto'] ];
     }
 
-	$retornar = '';
+	$retornar = '<option value="">- Select -</option>';
 
-	/* if(isset($_GET['post'])) {
-		$postId = $_GET['post'];
-	}
-	$rows = get_field('anadir_material' , $postId);
-
+	$rows = get_field('anadir_material' , $_POST['post_ID']);
 	$desgloseId = explode('row-', $_POST['idSelect']);
 	$nRow = $desgloseId[1][0];
-	$idGuardado = $rows[$nRow]['elegir_tipo']; */
+	$idGuardado = $rows[$nRow]['elegir_tipo'];
 
     foreach ($datos as $key => $value) {
-		/* $activo = '';
+		$activo = '';
 		if ($idGuardado == $key){
 			$activo = 'selected';
-		} */
-        $retornar .= '<option value="'.$key.'">'.$value.'</option>';
+		}
+        $retornar .= '<option '.$activo.' value="'.$key.'">'.$value.'</option>';
 	}    
 
     echo $retornar;
@@ -278,38 +277,29 @@ add_action('wp_ajax_obtener_extras_taller', 'fn_obtener_extras_taller');
 
 function fn_obtener_tipos_impresion() {
 
-	//GET PRODUCTOS
     $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
     if( ! empty( $request ) ) {
         $body = wp_remote_retrieve_body($request);
         $data = json_decode($body, true);
-        //var_dump($data);
-		$datos = $data["impresion"]["tipos"][ $_POST['id_iproducto'] ];
-	}
-	
-	//POST ACABADOS
-	$arrayName = array('body' => array('productos' => $_POST['id_iproducto']) );
-	$url = 'https://calculadora.imprimebanana.com/api/impresion/acabados';
-	$acabados = wp_remote_post( $url , $arrayName  );
-	$bodyAcabado = wp_remote_retrieve_body($acabados);
-	$dataAcabado = json_decode($bodyAcabado, true);
+        $datos = $data["impresion"]["tipos"][ $_POST['id_producto'] ];
+    }
 
-	$retornar = array();
-	
-	$tipo = '';
-	$acabado='';
+    $retornar = '<option value="">- Select -</option>';
+
+    $rows = get_field('anadir_material' , $_POST['post_ID']);
+    $desgloseId = explode('row-', $_POST['idSelect']);
+    $nRow = $desgloseId[1][0];
+    $idGuardado = $rows[$nRow]['elegir_tipo_impresion'];
 
     foreach ($datos as $key => $value) {
-        $tipo .= '<option value="'.$key.'">'.$value["nombre"].'</option>';
+        $activo = '';
+        if ($idGuardado == $key){
+            $activo = 'selected';
+        }
+        $retornar .= '<option '.$activo.' value="'.$key.'">'.$value['nombre'].'</option>';
     }    
-	
-	foreach ($dataAcabado as $key => $value) {
-        $acabado .= '<option value="'.$key.'">'.$value.'</option>';
-	}
-	
-	$retornar [0] = $tipo;
-	$retornar [1] = $acabado;
-    echo json_encode($retornar);
+
+    echo $retornar;
 
     wp_die();
 }
