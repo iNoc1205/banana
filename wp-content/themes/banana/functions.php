@@ -202,7 +202,7 @@ function acf_load_saved_acabado($field){
 
     return $field;
 }
-add_filter('acf/load_field/name=acabados', 'acf_load_saved_acabado');
+#add_filter('acf/load_field/name=acabados', 'acf_load_saved_acabado');
 
 ///////////////////////////// ANDREY //////////////////////////////////
 
