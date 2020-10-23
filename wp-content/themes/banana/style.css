@@ -1946,7 +1946,8 @@ header .left-menu li:last-child {
 #products-gallery #center-col {
   height: -webkit-fit-content;
   height: -moz-fit-content;
-  height: fit-content; }
+  height: fit-content;
+  min-height: 100vh; }
   #products-gallery #center-col .container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2074,7 +2075,8 @@ header .left-menu li:last-child {
 #single #center-col {
   height: -webkit-fit-content;
   height: -moz-fit-content;
-  height: fit-content; }
+  height: fit-content;
+  min-height: 100vh; }
   #single #center-col #info {
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -2106,8 +2108,7 @@ header .left-menu li:last-child {
       width: 100%;
       padding: 0 4vh;
       font-family: "HelveticaNeue";
-      text-align: center;
-      margin-bottom: 4vh; }
+      text-align: center; }
     #single #center-col #info .info {
       margin-bottom: 0px !important; }
   #single #center-col #materials {
@@ -2151,11 +2152,25 @@ header .left-menu li:last-child {
       font-family: "HelveticaNeue"; }
       #single #center-col #materials .second #material {
         width: 33.33%;
-        padding: 0 4vh; }
+        padding: 0 4vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between; }
         #single #center-col #materials .second #material #title-material {
           text-align: center;
           font-weight: bold;
-          font-size: 1.2rem; }
+          font-size: 1.2rem;
+          margin-bottom: -0.3rem !important; }
+        #single #center-col #materials .second #material #sub-title-material {
+          text-align: center;
+          font-size: 1rem; }
         #single #center-col #materials .second #material #desc {
           text-align: center;
           margin-bottom: 1.3rem; }
