@@ -218,7 +218,6 @@ function asv_insertar_js(){
 	wp_enqueue_script('asv_script');
 }
 
-
 function fn_obtener_tipos_taller() {
 
     $request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
@@ -231,9 +230,14 @@ function fn_obtener_tipos_taller() {
 	$retornar = '<option value="">- Select -</option>';
 
 	$rows = get_field('anadir_material' , $_POST['post_ID']);
-	$desgloseId = explode('row-', $_POST['idSelect']);
-	$nRow = $desgloseId[1][0];
-	$idGuardado = $rows[$nRow]['elegir_tipo'];
+    $desgloseId = explode('row-', $_POST['idSelect']);
+
+    $idGuardado = '';
+
+    if( isset($desgloseId[1]) ){
+        $nRow = $desgloseId[1][0];
+        $idGuardado = $rows[$nRow]['elegir_tipo'];
+    }
 
     foreach ($datos as $key => $value) {
 		$activo = '';
@@ -251,25 +255,42 @@ add_action('wp_ajax_obtener_tipos_taller', 'fn_obtener_tipos_taller');
 
 function fn_obtener_extras_taller() {
 
-	$arrayName = array('body' => array('tipos' => $_POST['id_producto'], 'troquel' => 1, 'impresion' => 0) );
+    $rows = get_field('anadir_material' , $_POST['post_ID']);
+    $id_producto = $_POST['id_producto'];
+
+    $idsGuardado = [];
+
+    if($_POST['precargado'] == 'true'){
+        $desgloseId = explode('row-', $_POST['idCampo']);
+        $nRow = $desgloseId[1][0];
+        $id_producto = $rows[$nRow]['elegir_tipo'];
+        $idsGuardado =  $rows[$nRow]['extras'];
+    }
+
+
+	$arrayName = array('body' => array('tipos' => $id_producto, 'troquel' => 1, 'impresion' => 0) );
 	$url = 'https://calculadora.imprimebanana.com/api/taller/extras';
 	$extras = wp_remote_post( $url , $arrayName  );
 	$body = wp_remote_retrieve_body($extras);
 	$dataExtras = json_decode($body, true);
 
-	$desgloseId = explode('row-', $_POST['id_select']);
-	$nRow = $desgloseId[1][0];
-
 	$retornar = '';
 
     foreach ($dataExtras as $key => $value) {
-		if( $value == 'error'|| $value == 'No existen extras para está configuración'){
-			$retornar = '<p>No hay opciones disponibles</p>';
-			break;
-		}
-		$retornar .= '<li><label><input type="checkbox" name="acf[field_5f891556cbe87][row-'.$nRow.'][field_5f8fa8bdd4c85][]" value="'.$key.'" >'.$value.'</label></li>';
+        if($key == 'error' OR $key == 'tipo' ){
+            if($value == 'error'){
+                $value = $dataExtras['mensaje'];
+            }
+            $retornar = '<p>'.$value.'</p>';
+            break;
+        }
+        $activo = '';
+        if (in_array($key, $idsGuardado)){
+            $activo = 'checked';
+        }
+		$retornar .= '<li><label><input '.$activo.' type="checkbox" name="'.$_POST['idCampo'].'[]" value="'.$key.'" >'.$value.'</label></li>';
 	}    
-	// var_dump($retornar);
+
     echo $retornar;
     wp_die();
 }
@@ -288,8 +309,13 @@ function fn_obtener_tipos_impresion() {
 
     $rows = get_field('anadir_material' , $_POST['post_ID']);
     $desgloseId = explode('row-', $_POST['idSelect']);
-    $nRow = $desgloseId[1][0];
-    $idGuardado = $rows[$nRow]['elegir_tipo_impresion'];
+
+    $idGuardado = '';
+
+    if( isset($desgloseId[1]) ){
+        $nRow = $desgloseId[1][0];
+        $idGuardado = $rows[$nRow]['elegir_tipo_impresion'];
+    }
 
     foreach ($datos as $key => $value) {
         $activo = '';
@@ -305,6 +331,49 @@ function fn_obtener_tipos_impresion() {
 }
 add_action( 'wp_ajax_obtener_tipos_impresion', 'fn_obtener_tipos_impresion' );
 
+function fn_obtener_acabados_impresion() {
+
+    $rows = get_field('anadir_material' , $_POST['post_ID']);
+    $id_producto = $_POST['id_producto'];
+
+    $idsGuardado = [];
+
+    if($_POST['precargado'] == 'true'){
+        $desgloseId = explode('row-', $_POST['idCampo']);
+        $nRow = $desgloseId[1][0];
+        $id_producto = $rows[$nRow]['elegir_tipo_impresion'];
+        $idsGuardado =  $rows[$nRow]['acabados'];
+    }
+
+
+    $arrayName = array('body' => array('productos' => $id_producto) );
+    $url = 'https://calculadora.imprimebanana.com/api/impresion/acabados';
+    $extras = wp_remote_post( $url , $arrayName  );
+    $body = wp_remote_retrieve_body($extras);
+    $dataExtras = json_decode($body, true);
+
+    $retornar = '';
+
+    foreach ($dataExtras as $key => $value) {
+
+        if($key == 'error' OR $key == 'tipo' ){
+            if($value == 'error'){
+                $value = $dataExtras['mensaje'];
+            }
+            $retornar = '<p>'.$value.'</p>';
+            break;
+        }
+        $activo = '';
+        if (in_array($key, $idsGuardado)){
+            $activo = 'checked';
+        }
+        $retornar .= '<li><label><input '.$activo.' type="checkbox" name="'.$_POST['idCampo'].'[]" value="'.$key.'" >'.$value.'</label></li>';
+    }    
+
+    echo $retornar;
+    wp_die();
+}
+add_action('wp_ajax_obtener_acabados_impresion', 'fn_obtener_acabados_impresion');
 ///////////////////////////////////////////////////////////////////////////
 
 function create_quantity_taxonomy() {
