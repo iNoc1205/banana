@@ -6,6 +6,18 @@
 		$data = json_decode($body, true);
 	}
     $rows = get_field('anadir_material');
+
+    $objDimensiones = get_terms( array(
+        'taxonomy' => 'dimension',
+        'hide_empty' => false,
+    ) );
+    $allDimensiones = WP_Term::to_array($objDimensiones);
+    $dimensiones = array();
+    foreach ($allDimensiones as $key => $value) {
+        $dimensiones[$key]=$value['name'];
+    }
+    var_dump($dimensiones);
+
     foreach( $rows as $row ) {
         if(! $row['estado_del_producto']):
             continue;
@@ -46,7 +58,6 @@
                 echo '</div>';
             echo '</div>';
         }
-        /* echo '<p id="title-material">'.$row.'</p>'; */
     }
 }?>
 <!-- <div id="material">

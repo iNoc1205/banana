@@ -94,10 +94,10 @@ function acf_load_material_impresion_field_choices( $field ) {
 }
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
-#$postId = $_GET['post'];
-#$test = get_field('anadir_material' , $postId);
+/* $postId = $_GET['post'];
+$test = get_field('anadir_material' , $postId);
 // $rows = have_rows('anadir_material' , $postId);
-#var_dump($test);
+var_dump($test); */
 
 function acf_load_saved_tipo_taller($field){
 	remove_filter( current_filter(), __FUNCTION__ );
@@ -432,7 +432,7 @@ function custom_taxonomy_dimension() {
 		'show_in_nav_menus'          => true,
 		'show_tagcloud'              => true,
 	);
-	register_taxonomy( 'taxonomy', array( 'post' ), $args );
+	register_taxonomy( 'dimension', array( 'post' ), $args );
 
 }
 add_action( 'init', 'custom_taxonomy_dimension', 0 );
