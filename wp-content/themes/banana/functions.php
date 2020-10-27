@@ -97,7 +97,7 @@ add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_i
 /* $postId = $_GET['post'];
 $test = get_field('anadir_material' , $postId);
 // $rows = have_rows('anadir_material' , $postId);
-var_dump($test); */
+var_dump($test[0]['extras']); */
 
 function acf_load_saved_tipo_taller($field){
 	remove_filter( current_filter(), __FUNCTION__ );

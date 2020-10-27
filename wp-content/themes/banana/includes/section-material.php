@@ -11,12 +11,13 @@
         'taxonomy' => 'dimension',
         'hide_empty' => false,
     ) );
-    $allDimensiones = WP_Term::to_array($objDimensiones);
-    $dimensiones = array();
-    foreach ($allDimensiones as $key => $value) {
-        $dimensiones[$key]=$value['name'];
-    }
-    var_dump($dimensiones);
+
+    $objCantidades = get_terms( array(
+        'taxonomy' => 'cantidad',
+        'hide_empty' => false,
+    ) );
+    
+    // var_dump($objCantidades);
 
     foreach( $rows as $row ) {
         if(! $row['estado_del_producto']):
@@ -30,11 +31,27 @@
                 echo '<div id="select-container">';
                     echo '<div id="dimensions"  class="form-group">';
                         echo '<select id="custom-select" class="form-control">';
-
+                        echo '<option value="hide" disabled selected>DIMENSION</option>';
+                        foreach ($objDimensiones as $key => $obj) {
+                            foreach ($row["elegir_dimensiones"] as $key => $arr) {
+                                if($obj->term_id == $row["elegir_dimensiones"][$key]){
+                                    $dimension = explode("x", $obj->name);
+                                    echo '<option value="'.$obj->name.'">'.$dimension[0].'cm x '.$dimension[1].'cm</option>';
+                                }
+                            }
+                        }
                         echo '</select>';
                     echo '</div>';
                     echo '<div id="quantity" class="form-group">';
                         echo '<select id="custom-select" class="form-control">';
+                        echo '<option value="hide" disabled selected>CANTIDAD</option>';
+                        foreach ($objCantidades as $key => $obj) {
+                            foreach ($row["elegir_cantidades"] as $key => $arr) {
+                                if($obj->term_id == $row["elegir_cantidades"][$key]){
+                                    echo '<option value="'.$obj->name.'">'.$obj->name.'</option>';
+                                }
+                            }
+                        }
                         echo '</select>';
                     echo '</div>';
                 echo '</div>';
@@ -46,13 +63,29 @@
                 echo '<p id="sub-title-material" value="'.$row['elegir_tipo_impresion'].'">'.$data["impresion"]["tipos"][$row['elegir_material_impresion']][$row['elegir_tipo_impresion']]['nombre'].'</p>';
                 echo '<p id="desc">'.$row["descripcion_breve"].'</p>';
                 echo '<div id="select-container">';
-                    echo '<div id="dimensions" class="form-group">';
+                    echo '<div id="dimensions"  class="form-group">';
                         echo '<select id="custom-select" class="form-control">';
-                            
+                        echo '<option value="hide" disabled selected>DIMENSION</option>';
+                        foreach ($objDimensiones as $key => $obj) {
+                            foreach ($row["elegir_dimensiones"] as $key => $arr) {
+                                if($obj->term_id == $row["elegir_dimensiones"][$key]){
+                                    $dimension = explode("x", $obj->name);
+                                    echo '<option value="'.$obj->name.'">'.$dimension[0].'cm x '.$dimension[1].'cm</option>';
+                                }
+                            }
+                        }
                         echo '</select>';
                     echo '</div>';
                     echo '<div id="quantity" class="form-group">';
                         echo '<select id="custom-select" class="form-control">';
+                        echo '<option value="hide" disabled selected>CANTIDAD</option>';
+                        foreach ($objCantidades as $key => $obj) {
+                            foreach ($row["elegir_cantidades"] as $key => $arr) {
+                                if($obj->term_id == $row["elegir_cantidades"][$key]){
+                                    echo '<option value="'.$obj->name.'">'.$obj->name.'</option>';
+                                }
+                            }
+                        }
                         echo '</select>';
                     echo '</div>';
                 echo '</div>';
