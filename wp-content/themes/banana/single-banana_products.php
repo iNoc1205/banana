@@ -12,6 +12,11 @@ get_header();?>
         </div>
         <div id="center-col" class="col-xl-8 col-lg-10 col-10">
             <h1 class="title"><?php the_title();?></h1>
+            <?php
+                $id = get_the_ID();
+                // var_dump($id);
+                echo '<input type="hidden" id="post_ID" name="post_ID" value="'.$id.'" />';
+            ?>
             <div id="info">
                 <h2>Información general</h2>
                 <p class="info"><?php the_field('informacion_general');?></p>

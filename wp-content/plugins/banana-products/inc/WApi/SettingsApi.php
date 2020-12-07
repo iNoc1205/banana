@@ -16,7 +16,7 @@ class SettingsApi{
 
 	public $fields = array();
 
-    public function register(){
+    /* public function register(){
         if ( !empty ($this->admin_pages)){
             add_action('admin_menu', array($this, 'addAdminMenu'));
         }
@@ -120,5 +120,5 @@ class SettingsApi{
 		foreach ( $this->fields as $field ) {
 			add_settings_field( $field["id"], $field["title"], ( isset( $field["callback"] ) ? $field["callback"] : '' ), $field["page"], $field["section"], ( isset( $field["args"] ) ? $field["args"] : '' ) );
 		}
-	}
+	} */
 }

@@ -2,6 +2,7 @@
 /*
 Template Name: About Us
 */
+global $acerca_page;
 get_header();?>
 <div id="about-us" class="content">
     <div class="row">
@@ -25,7 +26,7 @@ get_header();?>
                 <img id="ban-mob" src="<?php the_field('ban_mob');?>"alt="">
             </div>
             <div id="arquetipo" class="row">
-                <h2>Bananeidad</h2>
+                <h2><?php echo $acerca_page['bananeidad'];?></h2>
                 <p><?php the_field('bananeidad');?></p>
             </div>
             <div id="valores" class="row">
@@ -33,21 +34,21 @@ get_header();?>
             </div>
             <div id="first-container">
                 <div id="banana">
-                    <h2>Nuestros productos y servicios</h2>
+                    <h2><?php echo $acerca_page['productos'];?></h2>
                     <p><?php the_field('productos_servicios');?></p>
                 </div>
                 <div id="escenario">
-                    <h2>Escenario</h2>
+                    <h2><?php echo $acerca_page['escenario'];?></h2>
                     <p><?php the_field('escenario');?></p>
                 </div>
             </div>
             <div id="second-container">
                 <div id="banana">
-                    <h2>Hobbies</h2>
+                    <h2><?php echo $acerca_page['hobbies'];?></h2>
                     <p><?php the_field('hobbies');?></p>
                 </div>
                 <div id="tech">
-                    <h2>Tecnología</h2>
+                    <h2><?php echo $acerca_page['tecnologia'];?></h2>
                     <div id="img-container">
                         <img src="<?php echo get_template_directory_uri('')."/images/tech.svg";?>"alt="">
                     </div>

@@ -144,6 +144,24 @@ header {
           width: 0; }
         header .menu-left-bar-container .left-menu li a:hover:after {
           width: 100%; }
+      header .menu-left-bar-container .left-menu li.current-menu-item a {
+        color: #FDB813;
+        -webkit-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+      header .menu-left-bar-container .left-menu li.current-menu-item a:after {
+        background: none repeat scroll 0 0 transparent;
+        bottom: 0;
+        content: "";
+        display: block;
+        height: 2px;
+        left: 50%;
+        /* position: absolute; */
+        background: #FDB813;
+        -webkit-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        -o-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        width: 100%; }
     header .menu-left-bar-container .left-menu {
       /* align-self: flex-start; */
       display: -webkit-box;
@@ -2150,7 +2168,7 @@ header .left-menu li:last-child {
       -ms-flex-pack: justify;
       justify-content: space-between;
       font-family: "HelveticaNeue"; }
-      #single #center-col #materials .second #material {
+      #single #center-col #materials .second .material {
         width: 33.33%;
         padding: 0 4vh;
         display: -webkit-box;
@@ -2163,18 +2181,18 @@ header .left-menu li:last-child {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between; }
-        #single #center-col #materials .second #material #title-material {
+        #single #center-col #materials .second .material .title-material {
           text-align: center;
           font-weight: bold;
           font-size: 1.2rem;
           margin-bottom: -0.3rem !important; }
-        #single #center-col #materials .second #material #sub-title-material {
+        #single #center-col #materials .second .material .sub-title-material {
           text-align: center;
           font-size: 1rem; }
-        #single #center-col #materials .second #material #desc {
+        #single #center-col #materials .second .material .desc {
           text-align: center;
           margin-bottom: 1.3rem; }
-        #single #center-col #materials .second #material #select-container #dimensions {
+        #single #center-col #materials .second .material .select-container .dimensions {
           width: 100%;
           display: -webkit-box;
           display: -ms-flexbox;
@@ -2182,7 +2200,7 @@ header .left-menu li:last-child {
           -webkit-box-pack: center;
           -ms-flex-pack: center;
           justify-content: center; }
-          #single #center-col #materials .second #material #select-container #dimensions select {
+          #single #center-col #materials .second .material .select-container .dimensions select {
             width: 80%;
             max-width: 80%;
             text-align: center;
@@ -2190,14 +2208,14 @@ header .left-menu li:last-child {
             border-color: #00E3C8;
             background-color: transparent;
             color: #00E3C8; }
-            #single #center-col #materials .second #material #select-container #dimensions select option {
+            #single #center-col #materials .second .material .select-container .dimensions select option {
               color: #231F20;
               background-color: #00E3C8; }
-          #single #center-col #materials .second #material #select-container #dimensions select:focus {
+          #single #center-col #materials .second .material .select-container .dimensions select:focus {
             outline: none;
             -webkit-box-shadow: 0 0 0 4px rgba(0, 227, 200, 0.3);
             box-shadow: 0 0 0 4px rgba(0, 227, 200, 0.3); }
-        #single #center-col #materials .second #material #select-container #quantity {
+        #single #center-col #materials .second .material .select-container .quantity {
           width: 100%;
           display: -webkit-box;
           display: -ms-flexbox;
@@ -2205,7 +2223,7 @@ header .left-menu li:last-child {
           -webkit-box-pack: center;
           -ms-flex-pack: center;
           justify-content: center; }
-          #single #center-col #materials .second #material #select-container #quantity select {
+          #single #center-col #materials .second .material .select-container .quantity select {
             width: 80%;
             max-width: 80%;
             text-align: center;
@@ -2213,30 +2231,44 @@ header .left-menu li:last-child {
             border-color: #EAAA00;
             background-color: transparent;
             color: #EAAA00; }
-            #single #center-col #materials .second #material #select-container #quantity select option {
+            #single #center-col #materials .second .material .select-container .quantity select option {
               color: #000;
               background-color: #EAAA00; }
-          #single #center-col #materials .second #material #select-container #quantity select:focus {
+          #single #center-col #materials .second .material .select-container .quantity select:focus {
             outline: none;
             -webkit-box-shadow: 0 0 0 4px rgba(234, 170, 0, 0.3);
             box-shadow: 0 0 0 4px rgba(234, 170, 0, 0.3); }
-        #single #center-col #materials .second #material #title-cost {
+        #single #center-col #materials .second .material .title-cost {
           text-align: center;
           font-weight: bold;
           font-size: 1rem;
           margin-bottom: 0px; }
-        #single #center-col #materials .second #material #cost {
+        #single #center-col #materials .second .material .cost {
           text-align: center; }
-        #single #center-col #materials .second #material .btn-container {
+        #single #center-col #materials .second .material .btn-container {
           width: 100%;
-          margin-top: 2vh;
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
           -webkit-box-pack: center;
           -ms-flex-pack: center;
           justify-content: center; }
-          #single #center-col #materials .second #material .btn-container button {
+          #single #center-col #materials .second .material .btn-container .btn_disable {
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            border-radius: 0px;
+            font-weight: bold;
+            border-width: 1px;
+            border-color: #bbbbbb;
+            color: #231F20;
+            background-color: #bbbbbb;
+            cursor: not-allowed; }
+          #single #center-col #materials .second .material .btn-container .btn_disable:focus {
+            outline: none;
+            -webkit-box-shadow: none;
+            box-shadow: none; }
+          #single #center-col #materials .second .material .btn-container .btn_enable {
             width: -webkit-fit-content;
             width: -moz-fit-content;
             width: fit-content;
@@ -2246,16 +2278,16 @@ header .left-menu li:last-child {
             border-color: #E7025A;
             color: #000;
             background-color: #E7025A; }
-          #single #center-col #materials .second #material .btn-container button:hover {
+          #single #center-col #materials .second .material .btn-container .btn_enable:hover {
             background-color: transparent;
             color: #E7025A;
             border-width: 1px;
             border-color: #E7025A; }
-          #single #center-col #materials .second #material .btn-container button:focus {
+          #single #center-col #materials .second .material .btn-container .btn_enable:focus {
             outline: none;
             -webkit-box-shadow: 0 0 0 4px rgba(231, 2, 90, 0.3);
             box-shadow: 0 0 0 4px rgba(231, 2, 90, 0.3); }
-        #single #center-col #materials .second #material hr {
+        #single #center-col #materials .second .material hr {
           display: none; }
 
 #single #right-col {
@@ -2955,21 +2987,21 @@ header .left-menu li:last-child {
       flex-direction: row;
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-      #single #center-col #materials .second #material {
+      #single #center-col #materials .second .material {
         width: 100%;
         padding: 0 4vh;
         margin-top: 2vh;
         margin-bottom: 0; }
-        #single #center-col #materials .second #material:last-child {
+        #single #center-col #materials .second .material:last-child {
           margin-bottom: 0; }
-        #single #center-col #materials .second #material #title-material {
+        #single #center-col #materials .second .material .title-material {
           text-align: center;
           font-weight: bold;
           font-size: 1.2rem; }
-        #single #center-col #materials .second #material #desc {
+        #single #center-col #materials .second .material .desc {
           text-align: center;
           margin-bottom: 1.3rem; }
-        #single #center-col #materials .second #material #select-container {
+        #single #center-col #materials .second .material .select-container {
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
@@ -2977,16 +3009,16 @@ header .left-menu li:last-child {
           -webkit-box-direction: normal;
           -ms-flex-direction: row;
           flex-direction: row; }
-          #single #center-col #materials .second #material #select-container #dimensions {
+          #single #center-col #materials .second .material .select-container .dimensions {
             width: 50%; }
-          #single #center-col #materials .second #material #select-container #quantity {
+          #single #center-col #materials .second .material .select-container .quantity {
             width: 50%; }
-        #single #center-col #materials .second #material hr {
+        #single #center-col #materials .second .material hr {
           margin-top: 3.5vh;
           display: block;
           border-top: 1px solid #F4F4F4;
           width: 80%; }
-        #single #center-col #materials .second #material:last-child hr {
+        #single #center-col #materials .second .material:last-child hr {
           display: none; } }
 
 @media (max-width: 768px) {
@@ -3261,17 +3293,17 @@ header .left-menu li:last-child {
       flex-direction: row;
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-      #single #center-col #materials .second #material {
+      #single #center-col #materials .second .material {
         width: 100%;
         padding: 0 4vh; }
-        #single #center-col #materials .second #material #title-material {
+        #single #center-col #materials .second .material .title-material {
           text-align: center;
           font-weight: bold;
           font-size: 1.2rem; }
-        #single #center-col #materials .second #material #desc {
+        #single #center-col #materials .second .material .desc {
           text-align: center;
           margin-bottom: 1.3rem; }
-        #single #center-col #materials .second #material #select-container {
+        #single #center-col #materials .second .material .select-container {
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
@@ -3279,9 +3311,9 @@ header .left-menu li:last-child {
           -webkit-box-direction: normal;
           -ms-flex-direction: column;
           flex-direction: column; }
-          #single #center-col #materials .second #material #select-container #dimensions {
+          #single #center-col #materials .second .material .select-container .dimensions {
             width: 100%; }
-          #single #center-col #materials .second #material #select-container #quantity {
+          #single #center-col #materials .second .material .select-container .quantity {
             width: 100%; }
   #faq #center-col {
     height: -webkit-fit-content;

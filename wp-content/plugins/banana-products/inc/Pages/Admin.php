@@ -13,8 +13,8 @@ class Admin extends BaseController{
     public $settings; //SettingsApi
     public $callbacks; //AdminCallbacks
 
-    public $pages = array();
-    public $subpages = array();
+    // public $pages = array();
+    // public $subpages = array();
 
     public $taller = array();
     public $impresion = array();
@@ -25,9 +25,9 @@ class Admin extends BaseController{
 
         $this -> callbacks =new AdminCallbacks();
 
-        $this -> setPages();
+        // $this -> setPages();
 
-        $this -> setSubpages();
+        // $this -> setSubpages();
 
         /* $this -> setSettings();
         $this -> setSections();

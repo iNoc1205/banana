@@ -18,13 +18,13 @@ get_header();?>
             <div class="tab-wrap">
                 <!-- active tab on page load gets checked attribute -->
                 <input type="radio" id="tab1" name="tabGroup1" class="tab" checked>
-                <label class="impresion" for="tab1">Impresiones</label>
+                <label class="impresion" for="tab1"><?php echo $servicios_page['impresiones'];?></label>
 
                 <input type="radio" id="tab2" name="tabGroup1" class="tab">
-                <label class="disenos" for="tab2">Diseños</label>
+                <label class="disenos" for="tab2"><?php echo $servicios_page['disenos'];?></label>
 
                 <input type="radio" id="tab3" name="tabGroup1" class="tab">
-                <label class="social" for="tab3">Manejo de Redes Sociales</label>
+                <label class="social" for="tab3"><?php echo $servicios_page['socials'];?></label>
 
                 <div class="tab__content" id="content">
                 <p><?php the_field('impresiones');?></p>

@@ -8,17 +8,17 @@ use Inc\Base\BaseController;
 
 class AdminCallbacks extends BaseController{
 
-    public function adminPage(){
+    /* public function adminPage(){
         return require_once("$this->plugin_path/templates/admin.php");
-    }
+    } */
 
-    public function newProductPage(){
+    /* public function newProductPage(){
         return require_once("$this->plugin_path/templates/newProduct.php");
-    }
+    } */
 
-    public function adminCopyPage(){
+    /* public function adminCopyPage(){
         return require_once("$this->plugin_path/templates/adminCopy.php");
-    }
+    } */
 
     public function bananaOptionsGroup( $input){
         return $input;

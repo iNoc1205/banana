@@ -94,11 +94,6 @@ function acf_load_material_impresion_field_choices( $field ) {
 }
 add_filter('acf/load_field/name=elegir_material_impresion', 'acf_load_material_impresion_field_choices'); 
 
-/* $postId = $_GET['post'];
-$test = get_field('anadir_material' , $postId);
-// $rows = have_rows('anadir_material' , $postId);
-var_dump($test[0]['extras']); */
-
 function acf_load_saved_tipo_taller($field){
 	remove_filter( current_filter(), __FUNCTION__ );
 
@@ -204,14 +199,67 @@ function acf_load_saved_acabado($field){
 }
 #add_filter('acf/load_field/name=acabados', 'acf_load_saved_acabado');
 
+/* $postId = $_GET['post'];
+$test = get_field('anadir_material' , $postId);
+// $rows = have_rows('anadir_material' , $postId);
+var_dump($test); */
+
+function fn_calc_function(){
+	$rows = get_field('anadir_material' , $_POST['post_ID']);
+	
+	$row = $rows[$_POST['id_row']];
+
+	if($row['elegir_area'] == 'Taller'){
+
+		$request = wp_remote_get('https://calculadora.imprimebanana.com/api/productos');
+		if( ! empty( $request ) ) {
+			$body = wp_remote_retrieve_body($request);
+			$data = json_decode($body, true);
+			$impresion = $data["taller"]["precios"][(Int)$row['elegir_tipo']]['impresion'];
+			$troquel = $data["taller"]["precios"][(Int)$row['elegir_tipo']]['troquel'];
+		}
+
+		$arrayName = array('body' => 
+			array('medidas' => $_POST['dimension'], 
+			'cantidad' => (Int)$_POST['quantity'],
+			'tipos' => (Int)$row['elegir_tipo'],
+			'dificultad' => 1,
+			'impresion' => $impresion,
+			'troquel' => $troquel)
+		);
+		#var_dump($arrayName);
+		$url = 'https://calculadora.imprimebanana.com/api/taller/calcular';
+		$extras = wp_remote_post( $url , $arrayName  );
+		$body = wp_remote_retrieve_body($extras); #var_dump($body);
+		$dataExtras = json_decode($body, true);
+	}
+	if($row['elegir_area'] == 'Impresión'){
+		$arrayName = array('body' => 
+		array('medidas' => $_POST['dimension'],
+		'cantidad' => $_POST['quantity'],
+		'productos' => $row['elegir_material_impresion'],
+		'tipos' => $row['elegir_tipo_impresion']) );
+		$url = 'https://calculadora.imprimebanana.com/api/impresion/calcular';
+		$extras = wp_remote_post( $url , $arrayName  );
+		$body = wp_remote_retrieve_body($extras); #var_dump($body);
+		$dataExtras = json_decode($body, true);
+	}
+	// var_dump($dataExtras);
+	$cost = $dataExtras['total_formato'];
+
+	echo $cost;
+
+	wp_die();
+}
+add_action('wp_ajax_nopriv_calc_function', 'fn_calc_function');
+add_action('wp_ajax_calc_function', 'fn_calc_function');
+
 ///////////////////////////// ANDREY //////////////////////////////////
 
 
 add_action('admin_enqueue_scripts', 'asv_insertar_js');
 
 function asv_insertar_js(){
-
-    //if (!is_home()) return;
 
     wp_enqueue_media();
     wp_register_script('asv_script', get_stylesheet_directory_uri(). '/script.js', array('jquery'), '1', true );
@@ -436,3 +484,32 @@ function custom_taxonomy_dimension() {
 
 }
 add_action( 'init', 'custom_taxonomy_dimension', 0 );
+
+
+$contacto_page['servicio'] = __("Diseño & Impresión Digital", "bananaTs");
+###############
+$acerca_page['bananeidad'] = __("Bananeidad", "bananaTs");
+$acerca_page['productos'] = __("Nuestros productos y servicios", "bananaTs");
+$acerca_page['escenario'] = __("Escenario", "bananaTs");
+$acerca_page['hobbies'] = __("Hobbies", "bananaTs");
+$acerca_page['tecnologia'] = __("Tecnología", "bananaTs");
+###############
+$servicios_page['impresiones'] = __("Impresiones", "bananaTs");
+$servicios_page['disenos'] = __("Diseños", "bananaTs");
+$servicios_page['socials'] = __("Manejo de Redes Sociales", "bananaTs");
+###############
+$cart_page['producto'] = __("PRODUCTO", "bananaTs");
+$cart_page['archivo'] = __("ADJUNTAR<br>DISEÑO", "bananaTs");
+$cart_page['cantidad'] = __("CANTIDAD", "bananaTs");
+$cart_page['costo'] = __("COSTO<br>ESTIMADO", "bananaTs");
+$cart_page['material'] = __("Material: ", "bananaTs");
+$cart_page['dimension'] = __("Dimension: ", "bananaTs");
+$cart_page['elegir'] = __("Choose file", "bananaTs");
+$cart_page['check'] = __("Custom checkbox", "bananaTs");
+###############
+$cart_form['nombre'] = __("Nombre", "bananaTs");
+$cart_form['correo'] = __("Correo Electrónico", "bananaTs");
+$cart_form['tel'] = __("Teléfono", "bananaTs");
+$cart_form['mensaje'] = __("Mensaje", "bananaTs");
+$cart_form['enviar'] = __("ENVIAR", "bananaTs");
+

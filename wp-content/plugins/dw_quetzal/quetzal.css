@@ -1,0 +1,300 @@
+.quetzal_servicios{
+	margin-bottom: 20px;
+}
+.quetzal_servicios h2{
+	text-align: center;
+	margin: 0px 0px 10px 0px;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+
+.quetzal_servicios .quetzal_temporada{
+	margin-bottom: 30px;
+}
+
+.quetzal_servicios h3{
+    text-align: center;
+    background-color: #c22e3b;
+    color: #FFF;
+    margin-bottom: 0px;
+    padding: 7px 0px;
+    font-size: 15px;
+}
+
+.quetzal_servicios table tr:nth-child(odd) {
+    background-color: #d7ece9;
+}
+/*.quetzal_servicios .quetzal_temporada table tr:nth-child(even) {
+    background-color:#fbfbfb;
+}*/
+
+.quetzal_servicios .quetzal_th{
+	background-color: #2fad94 !important;
+	color: #FFF;
+}
+.quetzal_servicios table tr td{
+	padding: 5px 8px !important;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year{
+	min-width: 0px !important;
+	height: 25px !important;
+}
+
+.formulario_reserva h3{
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 10px;
+	color: orange;
+}
+
+.formulario_reserva label{
+	display: block;
+	margin-bottom: 5px;
+}
+
+.formulario_reserva input[type='text'],
+.formulario_reserva input[type='number'],
+.formulario_reserva select{
+	width: 100%;
+	height: 35px !important;
+	margin-bottom: 15px;
+}
+
+.formulario_reserva input[type='submit']{
+	width: 100%;
+}
+
+.form_ajax{
+	display: none;
+	text-align: center;
+	padding: 0px 0px 20px 0px;
+}
+
+.alerts_form{
+	display: none;
+	padding: 10px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+	border-color: #ff7a32;
+	color: #ff7a32;
+	text-align: left;
+	margin: 10px 0px;
+}
+
+.formulario_reserva .alerts_form{
+	text-align: center;
+}
+
+.formulario_reserva #divfinfants{
+	display: none;
+}
+
+.formulario_reserva .table_card{
+
+}
+
+.formulario_reserva .booknow {
+	display: none;
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+    z-index: 99999;
+}
+@media only screen and (max-width: 950px) {
+	.formulario_reserva .booknow {
+		display: block;
+	}
+}
+
+.form_checkout{
+	margin-bottom: 150px;
+}
+
+.form_checkout input[type='text'],
+.form_checkout input[type='email'],
+.form_checkout select{
+	width: 100% !important; 
+	height: 45px !important;
+	line-height: 45px !important;
+	padding: 0px 10px !important;
+}
+
+.form_checkout table{
+	border-spacing: 5px;
+}
+.form_checkout table table{
+	border-spacing: 0px;
+}
+.form_checkout table table .first_td{
+	padding-right: 10px;
+}
+.seguridad-tarjetas{
+	text-align: right;
+}
+
+.form_checkout .box_info{
+	width: 400px;
+	margin: 0 auto;
+}
+.form_checkout .input_terms{
+	text-align: right;
+	padding: 30px 0px 20px 0px;
+}
+.form_checkout #btn_continuar{
+	float: right;
+}
+.seguridad-tarjetas #tl_popupCL1{
+	z-index: 999 !important;
+}
+.reservation-detail-title{
+	text-transform: uppercase;
+}
+.reservation-detail>.servicios_car{
+	padding: 10px;
+}
+.reservation-detail>.servicios_car:nth-child(even) {
+    background-color: #f1f1f2;
+}
+
+.total_pagar{
+	font-size: 18px;
+	text-align: right;
+	padding: 10px;
+	border-top: 1px solid #dfdfdf;
+}
+.servicios_car{
+	overflow: hidden;
+	position: relative;
+}
+.eliminar_servicio{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-size: 15px;
+	cursor: pointer;
+	outline: none;
+	background-color: #a53434;
+	color: #FFF;
+	padding: 2px 5px;
+	border-radius: 3px;
+	font-family: Arial;
+	line-height: normal;
+}
+.eliminar_servicio:hover{
+	background-color: red;
+	color: #FFF;
+}
+
+.proceso_ajax{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: rgba(0,0,0, 0.5);
+    z-index: 9999;
+    color: #FFF;
+    font-size: 40px;
+    padding-top: 150px;
+    text-align: center;
+    display: none;
+}
+
+
+.lista_lodges .lodge{
+	float: left;
+	width: 240px; /*240px*/
+	
+	margin-left: 15px;
+	margin-bottom: 20px;
+
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+
+    overflow: hidden;
+}
+
+/*.single .lista_lodges .lodge{
+	min-height: 207px;
+}*/
+.page-id-5930 .lista_lodges .lodge{
+	min-height: 265px;
+}
+
+
+.lista_lodges .lodge .divimg{
+	background-color: #CCC;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	height: 140px;
+
+	-webkit-box-shadow: inset 0px -115px 75px -85px #000000;
+	-moz-box-shadow: inset 0px -115px 75px -85px #000000;
+	box-shadow: inset 0px -115px 75px -85px #000000;
+}
+
+.lista_lodges .lodge a{
+	display: block;
+	font-size: 15px;
+	position: relative;
+	width: 100%;
+	bottom: 0px;
+	line-height: 22px;
+	padding: 10px;
+}
+
+.lista_lodges .lodge.page{
+	width: 31%;
+}
+.lista_lodges .lodge.page .divimg{
+	background-size: cover;
+	height: 200px;
+}
+.lista_lodges .lodge.page a{
+	font-size: 18px;
+}
+
+.shortcode_tours .cmsmasters_slider_project{
+	margin-bottom: 15px;
+}
+
+.widget{
+	padding: 0px !important;
+}
+
+.temp_oculta{
+	display: none;
+}
+
+
+a.vermastemp{
+	margin: 20px 0px 40px 0px;
+}
+
+.carritoicon{
+	font-size: 12px;
+	color: #a53434;
+}
+body .carritoicon:before {
+    content: '\e84d';
+    font-family: 'fontello';
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+body .carritoicon.prod:before {
+    content: '\e84c';
+}
+
+body .cmsmasters_open_post .cmsmasters_post_header .cmsmasters_post_title {
+    font-size: 27px;
+}
+body .header_top .meta_wrap a {
+    font-size: 17px;
+}

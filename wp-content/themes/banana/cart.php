@@ -17,25 +17,25 @@ get_header();?>
             <h1 class="title"><?php the_title();?></h1>
             <div id="products">
                 <div id="titles">
-                    <p class="name">PRODUCTO</p>
-                    <p class="file">ADJUNTAR<br>DISEÑO</p>
-                    <p class="quantity">CANTIDAD</p>
-                    <p class="cost">COSTO<br>ESTIMADO</p>
+                    <p class="name"><?php echo $cart_page['producto'];?></p>
+                    <p class="file"><?php echo $cart_page['archivo'];?></p>
+                    <p class="quantity"><?php echo $cart_page['cantidad'];?></p>
+                    <p class="cost"><?php echo $cart_page['costo'];?></p>
                 </div>
                 <div id="product">
                     <div id="details">
                         <p>Volante</p>
-                        <p>Material: <span>Couche 250 gm</span></p>
-                        <p>Dimension: <span>1920mm x1080mm</span></p>
+                        <p><?php echo $cart_page['material'];?><span>Couche 250 gm</span></p>
+                        <p><?php echo $cart_page['dimension'];?><span>1920mm x1080mm</span></p>
                     </div>
                     <div id="archive">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="customFile" name="filename" multiple>
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <label class="custom-file-label" for="customFile"><?php echo $cart_page['elegir'];?></label>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                            <label class="custom-control-label" for="customCheck">Custom checkbox</label>
+                            <label class="custom-control-label" for="customCheck"><?php echo $cart_page['check'];?></label>
                         </div>
                     </div>
                     <div id="quantity">
@@ -98,23 +98,23 @@ get_header();?>
             <div id="contact">
                 <div class="first">
                     <div class="name">
-                        <label for="">Nombre</label>
+                        <label for=""><?php echo $cart_form['nombre'];?></label>
                         <input type="text" class="form-control">
                     </div>
                     <div class="correo">
-                        <label for="">Correo Electrónico</label>
+                        <label for=""><?php echo $cart_form['correo'];?></label>
                         <input type="text" class="form-control">
                     </div>
                     <div class="tel">
-                        <label for="">Teléfono</label>
+                        <label for=""><?php echo $cart_form['tel'];?></label>
                         <input type="text" class="form-control">
                     </div>
                 </div>
                 <div class="second">
-                    <label for="">Mensaje</label>
+                    <label for=""><?php echo $cart_form['mensaje'];?></label>
                     <textarea name="" id="" cols="2" rows="4" class="form-control"></textarea>
                     <div class="btn-container">
-                        <button type="submit" class="btn btn-primary">ENVIAR</button>
+                        <button type="submit" class="btn btn-primary"><?php echo $cart_form['enviar'];?></button>
                     </div>
                 </div>
             </div>
